@@ -10,13 +10,24 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model OriginDestiny {
+  id         Int     @id @default(autoincrement())
+  origin_id  Int
+  destiny_id Int
+  local      Local[]
+
+  @@map("origins_destinies")
+}
+
 model Local {
-  id               Int         @id @default(autoincrement())
-  name             String
-  lat              Float
-  long             Float
-  routeInfoOrigin  RouteInfo[] @relation("OriginLocation")
-  routeInfoDestiny RouteInfo[] @relation("DestinyLocation")
+  id                Int           @id @default(autoincrement())
+  name              String
+  lat               Float
+  long              Float
+  OriginDestiny     OriginDestiny @relation(fields: [origin_destiny_id], references: [id])
+  origin_destiny_id Int
+  routeInfoOrigin   RouteInfo[]   @relation("OriginLocation")
+  routeInfoDestiny  RouteInfo[]   @relation("DestinyLocation")
 
   @@map("locals")
 }
