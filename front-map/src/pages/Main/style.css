@@ -21,23 +21,22 @@
   margin-bottom: 10rem;
 }
 
-.container-map-informations {
+.container-map-informations,
+.container-world {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   width: calc(100vw - 25rem);
-  padding-top: 5rem;
+  padding: 5rem;
 }
 
-.container-map-informations h1 {
-  margin-left: 50px;
-
+.container-world {
+  justify-content: center;
 }
 
 .origin-destiny {
-  width: 55rem;
+  width: 100%;
   margin-top: 1.5rem;
-  margin-left: 50px;
   padding: 1.2rem;
   border-radius: 0.8rem;
   background-color: #ffffff;
@@ -50,4 +49,17 @@
 
 .route {
   margin-bottom: 20px;
+}
+
+.url-image {
+  margin-top: 1.5rem;
+  padding: 1.2rem;
+  border-radius: 0.8rem;
+  background-color: #000000;
+  box-shadow: 5px 5px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+img[alt="world"] {
+  align-self: center;
+  width: 60rem;
 }
