@@ -5,17 +5,30 @@ import World from "../../assets/world.svg"
 
 function Main() {
   const [route, setRoute] = useState<any>()
-  const [urlImage, setUrlImage] = useState<string | null>("")
+  const [urlImage, setUrlImage] = useState<string | null>("");
+  const [routeSearch, setRouteSearch] = useState<boolean>(true);
+  const [interests, setInterests] = useState<boolean>(false);
 
+
+  function handleBoolean(type: string) {
+    if (type === "routeSearch") {
+      setRouteSearch(true);
+      setInterests(false);
+      return
+    }
+
+    setInterests(true);
+    setRouteSearch(false);
+  }
 
   return (
     <div className='container-main'>
       <div className='container-lateral'>
         <div className='container-buttons'>
-          <button>Pesquisar Rota</button>
-          <button>Locais de Interesse</button>
+          <button onClick={() => handleBoolean("routeSearch")} className='button'>Pesquisar Rota</button>
+          <button onClick={() => handleBoolean("interests")} className='button'>Locais de Interesse</button>
         </div>
-        <RouteForm setRoute={setRoute} setUrlImage={setUrlImage} />
+        {routeSearch && <RouteForm setRoute={setRoute} setUrlImage={setUrlImage} />}
       </div>
 
       {route ?
@@ -34,8 +47,10 @@ function Main() {
             <p>longitude: {route?.destiny.long}</p>
           </div>
           <div className='origin-destiny route'>
-            <h2>Rota</h2>
-            <p>{route?.path_to_destination}</p>
+            <h2>Resumo da Rota</h2>
+            <p><b>Rota:</b> {route?.path_to_destination}</p>
+            <p><b>Distância:</b> {(route?.distance / 1000).toFixed(1)} Km</p>
+            <p><b>Duração:</b> {(route?.duration / 60).toLocaleString("en", { maximumFractionDigits: 0, minimumFractionDigits: 0 })} min</p>
           </div>
           {
             urlImage

@@ -48,8 +48,13 @@
 }
 
 .route {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   margin-bottom: 20px;
 }
+
+.route p {}
 
 .url-image {
   margin-top: 1.5rem;

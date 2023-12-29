@@ -2,6 +2,8 @@ import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useState } from 'reac
 import './style.css'
 import { api } from '../../api/api';
 import { google } from '../../api/google';
+import { GOOGLE_API_KEY } from "../../config";
+import { toast } from 'react-toastify';
 
 function RouteForm(
   {
@@ -34,6 +36,8 @@ function RouteForm(
       return setSpan("Preencha todos os campos!");
     }
 
+    const id = toast.loading("Por favor, aguarde...");
+
     try {
       const places = await api.get(`/places/twoplaces?origin=${origin}&destiny=${destiny}`);
 
@@ -50,19 +54,19 @@ function RouteForm(
       const originPoint = route.data.origin.name
       const destinyPoint = route.data.destiny.name
 
-      const map = await google.get(`/staticmap?size=1600x800&path=color:0x0000ff|weight:5|enc:${polyline}&markers=color:red|label:E|${originPoint}&markers=color:red|label:D|${destinyPoint}&key=AIzaSyBBnsIr9_1s-l9-4aQlVAUJiC45h9Eh9XI`, { responseType: "arraybuffer" })
+      const map = await google.get(`/staticmap?size=1600x800&path=color:0x0000ff|weight:5|enc:${polyline}&markers=color:red|label:E|${originPoint}&markers=color:red|label:D|${destinyPoint}&key=${GOOGLE_API_KEY}`, { responseType: "arraybuffer" })
 
       const arrayBufferView = new Uint8Array(map.data);
       const blob = new Blob([arrayBufferView], { type: 'image/png' });
       const dataUrl = URL.createObjectURL(blob);
 
-
       setUrlImage(dataUrl)
 
       setRoute({ ...route.data });
-    } catch (error: any) {
-      console.log(error);
 
+      toast.update(id, { render: "Tudo Ok!", type: "success", isLoading: false, autoClose: 2000, hideProgressBar: false });
+    } catch (error: any) {
+      toast.update(id, { render: "Erro inesperado no servidor!", type: "error", isLoading: false, autoClose: 2000, hideProgressBar: false });
     }
 
   }
@@ -75,7 +79,7 @@ function RouteForm(
 
         <input type="text" name="destiny" value={routeForm.destiny} id="destiny" placeholder='Insira o Destino' onChange={handleChangeRouteForm} />
 
-        <button className='button-form'>Pesquisar</button>
+        <button className='button-form button'>Pesquisar</button>
       </form>
       <span>{span}</span>
     </div>

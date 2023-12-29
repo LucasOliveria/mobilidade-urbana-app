@@ -19,7 +19,7 @@ body {
   background-color: #ece7e7;
 }
 
-button {
+.button {
   border: none;
   width: 20rem;
   height: 5rem;
@@ -34,7 +34,7 @@ button {
   transition: all 0.3s;
 }
 
-button:hover {
+.button:hover {
   border-color: #19d2a4;
   background-color: #ffffff;
   color: #19d2a4;
