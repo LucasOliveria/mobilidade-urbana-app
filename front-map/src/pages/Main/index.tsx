@@ -50,7 +50,7 @@ function Main() {
             <h2>Resumo da Rota</h2>
             <p><b>Rota:</b> {route?.path_to_destination}</p>
             <p><b>Distância:</b> {(route?.distance / 1000).toFixed(1)} Km</p>
-            <p><b>Duração:</b> {(route?.duration / 60).toLocaleString("en", { maximumFractionDigits: 0, minimumFractionDigits: 0 })} min</p>
+            <p><b>Duração:</b> {(route?.duration / 60).toLocaleString("pt-br", { maximumFractionDigits: 0, minimumFractionDigits: 0 })} min</p>
           </div>
           {
             urlImage
