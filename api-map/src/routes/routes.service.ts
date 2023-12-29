@@ -125,18 +125,18 @@ export class RoutesService {
   }
 
   findAll() {
-    return `This action returns all routes`;
+    return ``;
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} route`;
+    return ``;
   }
 
   update(id: number, updateRouteDto: UpdateRouteDto) {
-    return `This action updates a #${id} route`;
+    return ``;
   }
 
   remove(id: number) {
-    return `This action removes a #${id} route`;
+    return ``;
   }
 }
