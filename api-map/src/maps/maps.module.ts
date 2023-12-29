@@ -4,6 +4,8 @@ import { PlacesService } from './places/places.service';
 import { PlacesController } from './places/places.controller';
 import { DirectionsService } from './directions/directions.service';
 import { DirectionsController } from './directions/directions.controller';
+import { PointsOfInterestService } from './points-of-interest/points-of-interest.service';
+import { PointsOfInterestController } from './points-of-interest/points-of-interest.controller';
 
 @Module({
   providers: [
@@ -12,9 +14,10 @@ import { DirectionsController } from './directions/directions.controller';
       useValue: new GoogleClient({})
     },
     PlacesService,
-    DirectionsService
+    DirectionsService,
+    PointsOfInterestService
   ],
-  controllers: [PlacesController, DirectionsController],
+  controllers: [PlacesController, DirectionsController, PointsOfInterestController],
   exports: [DirectionsService]
 })
 export class MapsModule { }
