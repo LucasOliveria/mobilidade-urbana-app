@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateRouteDto } from './dto/create-route.dto';
 import { UpdateRouteDto } from './dto/update-route.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { DirectionsService } from 'src/maps/directions/directions.service';
 
 type TOriginDestiny = {
   id: number,
@@ -9,8 +10,8 @@ type TOriginDestiny = {
   lat: number,
   long: number,
   origin_destiny_id: number,
-  origin_id?: number
-  destiny_id?: number
+  origin_id?: string
+  destiny_id?: string
 }
 
 type TLocal = {
@@ -20,9 +21,21 @@ type TLocal = {
 
 @Injectable()
 export class RoutesService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService, private directionsService: DirectionsService) { }
 
   async create(createRouteDto: CreateRouteDto) {
+    const { available_travel_modes, geocoded_waypoints, routes, request } = await this.directionsService.getDirections(
+      createRouteDto.origin_id,
+      createRouteDto.destiny_id
+    )
+
+    const legs = routes[0].legs[0]
+    const steps = routes[0].legs[0].steps
+    const arraySteps = []
+
+    for (const step of steps) {
+      arraySteps.push(step.html_instructions)
+    }
     const routeIdPair = {
       origin_id: createRouteDto.origin_id,
       destiny_id: createRouteDto.destiny_id
@@ -32,8 +45,8 @@ export class RoutesService {
 
     const originDestiny = await this.prisma.originDestiny.create({
       data: {
-        origin_id: Number(createRouteDto.origin_id),
-        destiny_id: Number(createRouteDto.destiny_id),
+        origin_id: createRouteDto.origin_id,
+        destiny_id: createRouteDto.destiny_id
       }
     })
 
@@ -41,37 +54,38 @@ export class RoutesService {
       if (routerId === "origin_id") {
         const local = await this.prisma.local.create({
           data: {
-            name: "nome origem",
-            lat: 0,
-            long: 0,
+            name: legs.start_address,
+            lat: legs.start_location.lat,
+            long: legs.start_location.lng,
             origin_destiny_id: originDestiny.id
           }
         });
-        locals.origin = { ...local, origin_id: Number(routeIdPair[routerId]) }
+        locals.origin = { ...local, origin_id: routeIdPair[routerId] }
 
       }
 
       if (routerId === "destiny_id") {
         const local = await this.prisma.local.create({
           data: {
-            name: "nome destino",
-            lat: 0,
-            long: 0,
+            name: legs.end_address,
+            lat: legs.end_location.lat,
+            long: legs.end_location.lng,
             origin_destiny_id: originDestiny.id
           }
         });
-        locals.destiny = { ...local, destiny_id: Number(routeIdPair[routerId]) }
+        locals.destiny = { ...local, destiny_id: routeIdPair[routerId] }
 
       }
     }
 
     const RouteInfo = await this.prisma.routeInfo.create({
       data: {
-        name: "nome da rota",
+        name: createRouteDto.name,
         origin_local_id: locals.origin.id,
         destiny_local_Id: locals.destiny.id,
-        distance: 7.82,
-        duration: 0.25
+        distance: legs.distance.value,
+        duration: legs.duration.value,
+        path_to_destination: arraySteps
       },
       select: {
         id: true,
@@ -103,10 +117,11 @@ export class RoutesService {
           }
         },
         distance: true,
-        duration: true
+        duration: true,
+        path_to_destination: true
       }
     })
-    return RouteInfo;
+    return { ...RouteInfo, overview_polyline: routes[0].overview_polyline.points };
   }
 
   findAll() {
