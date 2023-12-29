@@ -23,15 +23,15 @@ OBS.: Caso não possua nenhuma ferramenta para criação e manipulação de banc
 - DataGrip
 - SQL Workbench/J
 ```
-5. Existem variáveis de ambiente inseridas nos códigos e essas devem ser configuradas. Para isso duplique o arquivo ```.env.example``` no diretório raiz, renomeie para ```.env``` e preencha as variáveis com as configurações de conexão que costuma utilizar. Na variável **DATABASE_URL** ```DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE?schema=public"``` substitua **USER**, **PASSWORD** e **PORT** pela configuração usada no seu computador e que foram escolhidas ao instalar o postgreSQL, o **HOST** pode ser substituido por localhost e o **DATABASE** é o nome do banco de dados que você criou no passo 4. Abaixo segue um exemplo de como as variáveis devem ser preenchidas. Na variável **GOOGLE_API_KEY** preencha com a sua Key Api do Google Maps
+5. Existem variáveis de ambiente inseridas nos códigos e essas devem ser configuradas. Para isso duplique o arquivo ```.env.example``` no diretório raiz **api-map***, renomeie para ```.env```(Ou só renomeie diretamente o .env.example) e preencha as variáveis com as configurações de conexão que costuma utilizar. Na variável **DATABASE_URL** ```DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE?schema=public"``` substitua **USER**, **PASSWORD** e **PORT** pela configuração usada no seu computador e que foram escolhidas ao instalar o postgreSQL, o **HOST** pode ser substituido por localhost e o **DATABASE** é o nome do banco de dados que você criou no passo 4. Abaixo segue um exemplo de como as variáveis devem ser preenchidas. Na variável **GOOGLE_API_KEY** preencha com a sua Key Api do Google Maps
 
 #### .env (exemplo)
 ```javascript
 GOOGLE_API_KEY="gshoooewsk455aa$aasddw"
 DATABASE_URL="postgresql://postgres:postgres@localhost:5432/NOME_DO_BANCO_DADOS?schema=public"
 ```
-
-6. Após configurar as variáveis de ambiente no arquivo ```.env```, Rode o script "**npm run migrate:run**" no terminal do projeto **api-map**. Esse comando criará as tabelas dentro do banco de dados criado anteriormente.
-7. Após realizar todas as configurações rode o script **"npm run start:dev"** no terminal do projeto. Esse comando iniciará o servidor em sua máquina na porta 3000.
-8. Agora abra um outro terminal e navegue até a pasta **front-map** e rode o comando **npm run dev**. No navegador digite a URL: http://localhost:5173/
+6. No diretório **front-map**, dentro da pasta **src** renomeie o arquivo **config.example.ts** para **config.ts** e preencha a variável **GOOGLE_API_KEY** com a sua Key Api do Google Maps
+7. Após configurar as variáveis de ambiente no arquivo ```.env```, Rode o script "**npm run migrate:run**" no terminal do projeto **api-map**. Esse comando criará as tabelas dentro do banco de dados criado anteriormente.
+8. Após realizar todas as configurações rode o script **"npm run start:dev"** no terminal do projeto. Esse comando iniciará o servidor em sua máquina na porta 3000.
+9. Agora abra um outro terminal e navegue até a pasta **front-map** e rode o comando **npm run dev**. No navegador digite a URL: http://localhost:5173/
 ---
