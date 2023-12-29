@@ -1,0 +1,53 @@
+.container-main {
+  display: flex;
+
+}
+
+.container-lateral {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 25rem;
+  min-height: 100vh;
+  padding: 3.5rem 0;
+  background-color: black;
+  box-shadow: 15px 0px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.container-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-bottom: 10rem;
+}
+
+.container-map-informations {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: calc(100vw - 25rem);
+  padding-top: 5rem;
+}
+
+.container-map-informations h1 {
+  margin-left: 50px;
+
+}
+
+.origin-destiny {
+  width: 55rem;
+  margin-top: 1.5rem;
+  margin-left: 50px;
+  padding: 1.2rem;
+  border-radius: 0.8rem;
+  background-color: #ffffff;
+  box-shadow: 5px 5px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.origin-destiny h2 {
+  margin-bottom: 1.2rem;
+}
+
+.route {
+  margin-bottom: 20px;
+}

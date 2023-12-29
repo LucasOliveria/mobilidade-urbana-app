@@ -24,7 +24,7 @@ export class RoutesService {
   constructor(private prisma: PrismaService, private directionsService: DirectionsService) { }
 
   async create(createRouteDto: CreateRouteDto) {
-    const { available_travel_modes, geocoded_waypoints, routes, request } = await this.directionsService.getDirections(
+    const { routes } = await this.directionsService.getDirections(
       createRouteDto.origin_id,
       createRouteDto.destiny_id
     )
