@@ -4,6 +4,7 @@ import { api } from '../../api/api';
 import { google } from '../../api/google';
 import { GOOGLE_API_KEY } from "../../config";
 import { toast } from 'react-toastify';
+import { TRoute } from '../../types/types';
 
 function RouteForm(
   {
@@ -12,7 +13,7 @@ function RouteForm(
   }
     :
     {
-      setRoute: Dispatch<SetStateAction<any>>
+      setRoute: Dispatch<SetStateAction<TRoute | undefined>>
       setUrlImage: Dispatch<SetStateAction<string | null>>
     }
 ) {

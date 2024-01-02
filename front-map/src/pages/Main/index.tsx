@@ -1,10 +1,13 @@
 import { useState } from 'react';
+import RouteBold from '../../assets/route-bold.svg';
+import World from "../../assets/world.svg";
 import RouteForm from '../../components/RouteForm';
+import { TRoute } from '../../types/types';
+import DOMPurify from 'dompurify';
 import './style.css';
-import World from "../../assets/world.svg"
 
 function Main() {
-  const [route, setRoute] = useState<any>()
+  const [route, setRoute] = useState<TRoute>()
   const [urlImage, setUrlImage] = useState<string | null>("");
   const [routeSearch, setRouteSearch] = useState<boolean>(true);
   const [interests, setInterests] = useState<boolean>(false);
@@ -48,7 +51,13 @@ function Main() {
           </div>
           <div className='origin-destiny route'>
             <h2>Resumo da Rota</h2>
-            <p><b>Rota:</b> {route?.path_to_destination}</p>
+            <p ><b>Rota:</b></p>
+            {route?.path_to_destination.map((path, i) => (
+              <div className='div-route' key={i} >
+                <img src={RouteBold} alt="route bold" />
+                <p dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(path) }} />
+              </div>
+            ))}
             <p><b>Distância:</b> {(route?.distance / 1000).toFixed(1)} Km</p>
             <p><b>Duração:</b> {(route?.duration / 60).toLocaleString("pt-BR", { maximumFractionDigits: 0, minimumFractionDigits: 0 })} min</p>
           </div>
