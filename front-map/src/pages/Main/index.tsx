@@ -38,19 +38,19 @@ function Main() {
         <div className='container-map-informations'>
           <h1>{route?.name}</h1>
           <div className='origin-destiny origin'>
-            <h2>Origem</h2>
-            <p>Nome: {route?.origin.name}</p>
-            <p>latitude: {route?.origin.lat}</p>
-            <p>longitude: {route?.origin.long}</p>
+            <h2 style={{ color: "#65B91D" }}>Origem</h2>
+            <p><b>Nome:</b> {route?.origin.name}</p>
+            <p><b>latitude:</b> {route?.origin.lat}</p>
+            <p><b>longitude:</b> {route?.origin.long}</p>
           </div>
           <div className='origin-destiny destiny'>
-            <h2>Destino</h2>
-            <p>Nome: {route?.destiny.name}</p>
-            <p>latitude: {route?.destiny.lat}</p>
-            <p>longitude: {route?.destiny.long}</p>
+            <h2 style={{ color: "#E94235" }}>Destino</h2>
+            <p><b>Nome:</b> {route?.destiny.name}</p>
+            <p><b>latitude:</b> {route?.destiny.lat}</p>
+            <p><b>longitude:</b> {route?.destiny.long}</p>
           </div>
           <div className='origin-destiny route'>
-            <h2>Resumo da Rota</h2>
+            <h2 style={{ color: "#2EACBD" }}>Resumo da Rota</h2>
             <p ><b>Rota:</b></p>
             {route?.path_to_destination.map((path, i) => (
               <div className='div-route' key={i} >
