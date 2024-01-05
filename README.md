@@ -30,8 +30,8 @@ OBS.: Caso não possua nenhuma ferramenta para criação e manipulação de banc
 GOOGLE_API_KEY="gshoooewsk455aa$aasddw"
 DATABASE_URL="postgresql://postgres:postgres@localhost:5432/NOME_DO_BANCO_DADOS?schema=public"
 ```
-6. No diretório **front-map**, dentro da pasta **src** renomeie o arquivo **config.example.ts** para **config.ts** e preencha a variável **GOOGLE_API_KEY** com a sua Key Api do Google Maps
-7. Após configurar as variáveis de ambiente no arquivo ```.env```, Rode o script "**npm run migrate:run**" no terminal do projeto **api-map**. Esse comando criará as tabelas dentro do banco de dados criado anteriormente.
-8. Após realizar todas as configurações rode o script **"npm run start:dev"** no terminal do projeto. Esse comando iniciará o servidor em sua máquina na porta 3000.
-9. Agora abra um outro terminal e navegue até a pasta **front-map** e rode o comando **npm run dev**. No navegador digite a URL: http://localhost:5173/
+
+6. Após configurar as variáveis de ambiente no arquivo ```.env```, Rode o script "**npm run migrate:run**" no terminal do projeto **api-map**. Esse comando criará as tabelas dentro do banco de dados criado anteriormente.
+7. Após realizar todas as configurações rode o script **"npm run start:dev"** no terminal do projeto. Esse comando iniciará o servidor em sua máquina na porta 3000.
+8. Agora abra um outro terminal e navegue até a pasta **front-map** e rode o comando **npm run dev**. No navegador digite a URL: http://localhost:5173/
 ---

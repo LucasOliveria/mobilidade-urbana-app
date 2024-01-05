@@ -8,7 +8,7 @@ import './style.css';
 
 function Main() {
   const [route, setRoute] = useState<TRoute>()
-  const [urlImage, setUrlImage] = useState<string | null>("");
+  const [urlImage, setUrlImage] = useState<string>("");
   const [routeSearch, setRouteSearch] = useState<boolean>(true);
   const [interests, setInterests] = useState<boolean>(false);
 
@@ -65,7 +65,7 @@ function Main() {
             urlImage
             &&
             <div className='url-image'>
-              <img src={urlImage} alt="" />
+              <img src={urlImage} alt="static map" />
             </div>
           }
         </div>

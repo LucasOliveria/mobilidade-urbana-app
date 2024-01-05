@@ -22,5 +22,6 @@ export type TRoute = {
   distance: number
   duration: number
   path_to_destination: string[],
-  overview_polyline: string
+  overview_polyline: string,
+  url: string
 }
