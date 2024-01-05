@@ -6,6 +6,8 @@ import { DirectionsService } from './directions/directions.service';
 import { DirectionsController } from './directions/directions.controller';
 import { PointsOfInterestService } from './points-of-interest/points-of-interest.service';
 import { PointsOfInterestController } from './points-of-interest/points-of-interest.controller';
+import { StaticMapsController } from './static-maps/static-maps.controller';
+import { StaticMapsService } from './static-maps/static-maps.service';
 
 @Module({
   providers: [
@@ -15,9 +17,10 @@ import { PointsOfInterestController } from './points-of-interest/points-of-inter
     },
     PlacesService,
     DirectionsService,
-    PointsOfInterestService
+    PointsOfInterestService,
+    StaticMapsService
   ],
-  controllers: [PlacesController, DirectionsController, PointsOfInterestController],
-  exports: [DirectionsService]
+  controllers: [PlacesController, DirectionsController, PointsOfInterestController, StaticMapsController],
+  exports: [DirectionsService, StaticMapsService]
 })
 export class MapsModule { }

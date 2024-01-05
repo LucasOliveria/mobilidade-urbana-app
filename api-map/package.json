@@ -31,7 +31,8 @@
     "@prisma/client": "^5.7.1",
     "cors": "^2.8.5",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "static-google-map": "^0.0.5"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.2.1",

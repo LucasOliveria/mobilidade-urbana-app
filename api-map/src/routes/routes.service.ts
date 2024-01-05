@@ -3,6 +3,7 @@ import { CreateRouteDto } from './dto/create-route.dto';
 import { UpdateRouteDto } from './dto/update-route.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { DirectionsService } from 'src/maps/directions/directions.service';
+import { StaticMapsService } from 'src/maps/static-maps/static-maps.service';
 
 type TOriginDestiny = {
   id: number,
@@ -21,7 +22,7 @@ type TLocal = {
 
 @Injectable()
 export class RoutesService {
-  constructor(private prisma: PrismaService, private directionsService: DirectionsService) { }
+  constructor(private prisma: PrismaService, private directionsService: DirectionsService, private staticMapsService: StaticMapsService) { }
 
   async create(createRouteDto: CreateRouteDto) {
     const { routes } = await this.directionsService.getDirections(
@@ -29,13 +30,15 @@ export class RoutesService {
       createRouteDto.destiny_id
     )
 
-    const legs = routes[0].legs[0]
-    const steps = routes[0].legs[0].steps
-    const arraySteps = []
+    const steps = routes[0].legs[0].steps;
+    const arraySteps = [];
+    const legs = routes[0].legs[0];
+    const overview_polyline = routes[0].overview_polyline.points;
 
     for (const step of steps) {
-      arraySteps.push(step.html_instructions)
+      arraySteps.push(step.html_instructions);
     }
+
     const routeIdPair = {
       origin_id: createRouteDto.origin_id,
       destiny_id: createRouteDto.destiny_id
@@ -60,8 +63,8 @@ export class RoutesService {
             origin_destiny_id: originDestiny.id
           }
         });
-        locals.origin = { ...local, origin_id: routeIdPair[routerId] }
 
+        locals.origin = { ...local, origin_id: routeIdPair[routerId] }
       }
 
       if (routerId === "destiny_id") {
@@ -73,12 +76,12 @@ export class RoutesService {
             origin_destiny_id: originDestiny.id
           }
         });
-        locals.destiny = { ...local, destiny_id: routeIdPair[routerId] }
 
+        locals.destiny = { ...local, destiny_id: routeIdPair[routerId] }
       }
     }
 
-    const RouteInfo = await this.prisma.routeInfo.create({
+    const routeInfo = await this.prisma.routeInfo.create({
       data: {
         name: createRouteDto.name,
         origin_local_id: locals.origin.id,
@@ -120,8 +123,11 @@ export class RoutesService {
         duration: true,
         path_to_destination: true
       }
-    })
-    return { ...RouteInfo, overview_polyline: routes[0].overview_polyline.points };
+    });
+
+    const { url } = await this.staticMapsService.getStaticMap(overview_polyline, routeInfo.origin.name, routeInfo.destiny.name)
+
+    return { ...routeInfo, overview_polyline, url };
   }
 
   findAll() {
