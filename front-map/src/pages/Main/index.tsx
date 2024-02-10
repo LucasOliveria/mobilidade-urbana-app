@@ -7,21 +7,22 @@ import DOMPurify from 'dompurify';
 import './style.css';
 
 function Main() {
-  const [route, setRoute] = useState<TRoute>()
+  const [route, setRoute] = useState<TRoute | undefined>()
+  const [interests, setInterests] = useState<undefined>()
   const [urlImage, setUrlImage] = useState<string>("");
-  const [routeSearch, setRouteSearch] = useState<boolean>(true);
-  const [interests, setInterests] = useState<boolean>(false);
+  const [routesFinder, setRoutesFinder] = useState<boolean>(true);
+  const [interestsFinder, setInterestsFinder] = useState<boolean>(false);
 
 
   function handleBoolean(type: string) {
     if (type === "routeSearch") {
-      setRouteSearch(true);
-      setInterests(false);
+      setRoutesFinder(true);
+      setInterestsFinder(false);
       return
     }
 
-    setInterests(true);
-    setRouteSearch(false);
+    setInterestsFinder(true);
+    setRoutesFinder(false);
   }
 
   return (
@@ -31,11 +32,12 @@ function Main() {
           <button onClick={() => handleBoolean("routeSearch")} className='button'>Pesquisar Rota</button>
           <button onClick={() => handleBoolean("interests")} className='button'>Locais de Interesse</button>
         </div>
-        {routeSearch && <RouteForm setRoute={setRoute} setUrlImage={setUrlImage} />}
+        {routesFinder && <RouteForm setRoute={setRoute} setUrlImage={setUrlImage} setInterests={setInterests}/>}
+        {interestsFinder && <div style={{ color: "red" }}><b>Em andamento</b></div>}
       </div>
 
       {route ?
-        <div className='container-map-informations'>
+        <div className='container-route-informations'>
           <h1>{route?.name}</h1>
           <div className='origin-destiny origin'>
             <h2 style={{ color: "#65B91D" }}>Origem</h2>
@@ -69,6 +71,9 @@ function Main() {
             </div>
           }
         </div>
+        :
+        interests ?
+        <div></div>
         :
         <div className='container-world'>
           <img src={World} alt="world" />

@@ -21,7 +21,7 @@
   margin-bottom: 10rem;
 }
 
-.container-map-informations,
+.container-route-informations,
 .container-world {
   display: flex;
   flex-direction: column;

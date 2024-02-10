@@ -8,11 +8,13 @@ function RouteForm(
   {
     setRoute,
     setUrlImage,
+    setInterests
   }
     :
     {
       setRoute: Dispatch<SetStateAction<TRoute | undefined>>
       setUrlImage: Dispatch<SetStateAction<string>>
+      setInterests: Dispatch<SetStateAction<undefined>>
     }
 ) {
   const [routeForm, setRouteForm] = useState({
@@ -49,7 +51,9 @@ function RouteForm(
         destiny_id: placeIdDestini
       });
 
-      setUrlImage(route.data.url)
+      setUrlImage(route.data.url);
+
+      setInterests(undefined);
 
       setRoute({ ...route.data });
 
