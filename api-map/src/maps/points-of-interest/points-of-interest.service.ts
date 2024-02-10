@@ -1,4 +1,4 @@
-import { Client as GoogleClient } from '@googlemaps/google-maps-services-js';
+import { Client as GoogleClient, Language } from '@googlemaps/google-maps-services-js';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PlacesService } from '../places/places.service';
@@ -21,6 +21,7 @@ export class PointsOfInterestService {
         },
         radius: 5000,
         type: type,
+        language: Language.pt_BR,
         key: this.configService.get('GOOGLE_API_KEY')
       }
     });
